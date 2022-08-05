@@ -7,15 +7,16 @@
     <title>Mon pokedex</title>
     <link rel="stylesheet" href="./style.css" type="text/css">
     <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+
    <script defer>
       
       async function doGetRequest() {
-      let res = await axios.get("https://pokeapi.co/api/v2/pokemon/1/")
+      let res = await axios.get("https://pokeapi.co/api/v2/pokemon/2/")
         let datas = res.data;
         let poke_data =datas.species;
         console.log(poke_data);
         let url_img = `https://raw.githubusercontent.com/PokeAPI/sprites
-                        /master/sprites/pokemon/versions/generation-ii/crystal/1.png`
+                        /master/sprites/pokemon/versions/generation-ii/crystal/2.png`
         
       }
   
