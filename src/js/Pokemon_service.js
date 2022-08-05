@@ -1,10 +1,13 @@
-
+import {useEffect, useRef, useState } from 'react';
 import axios from 'axios';
-const controller = new AbortController();
+
+ const controller = new AbortController();
+  
+  
 
 export  async function getPokemons(API_ENDPOINT = 'https://pokeapi.co/api/v2/pokemon/' ) {
     
-    const {data} = await axios.get(API_ENDPOINT,{signal: controller.signal});
+    const {data} = await axios.get(API_ENDPOINT);
     
     return{
         data : data,
@@ -15,12 +18,33 @@ export  async function getPokemons(API_ENDPOINT = 'https://pokeapi.co/api/v2/pok
     
 }
 
-export  async function getPokemonsUrl(url) {
+export  async function getPokemonsUrl(API_ENDPOINT = url) {
     
-    const {data} = await axios.get(url);
-    return data;
+    const [poke_data,setdatas] = useState([]);
+    const [loading, setLoading] = useState(true);
+    const {data} = await axios.get(API_ENDPOINT,{signal: controller.signal});
     
-        
+    
+        switch(loading){
+            case true :
+                
+                setdatas(data)
+                if(poke_data.length != 0){
+                    setLoading(false);
+                } 
+                break;
+            case  false : 
+            useEffect(() => controller.abort()  )
+            setLoading(true);
+            setdatas("")
+            break;
+        }
+       
+    
+   
+    
+    return poke_data;
+    
     
     
 }

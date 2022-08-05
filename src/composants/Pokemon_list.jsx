@@ -12,9 +12,9 @@ import { useState, useEffect } from "react";
 
    const [nextDatas,setNextData] = useState();
   
-    useEffect( ( )=>{
+   
         if(nextDatas == ""){
-        results?.then( res =>{
+        results.then( res =>{
         setPokemons(res.pokemons); 
         setNextData(res.next_data);
             
@@ -28,8 +28,8 @@ import { useState, useEffect } from "react";
                 setPokemons(pokemons.concat(res.pokemons)); 
                 setNextData(res.next_data);
         })
-        
- }})
+    }
+
    
     const pokemon_array = [];
    
@@ -38,7 +38,7 @@ import { useState, useEffect } from "react";
    
     pokemons.map((pokemon) => pokemon_array.push(pokemon.name))
     pokemons.map(pokemon =>  url_data.push(pokemon.url));
-   console.log(display);
+   
 
    for(let i=0; i<pokemon_array.length;i++){
        display.push(
