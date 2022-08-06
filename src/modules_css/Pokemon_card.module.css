@@ -1,0 +1,19 @@
+.hidden
+{
+    display:none;
+}
+.visibility
+{
+    max-height: 500px;
+    overflow: hidden;
+}
+
+
+
+.pokemon_card{
+    text-align: center;
+    width: 7%;
+    height: 50%;
+ 
+    
+    }

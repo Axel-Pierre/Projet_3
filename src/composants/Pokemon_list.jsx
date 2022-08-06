@@ -2,10 +2,15 @@
 import Generate_pokemon_card from "./Generate_pokemon_card";
 import  {getPokemons, getPokemonsUrl} from "../js/Pokemon_service";
 import { useState, useEffect } from "react";
-
+import styles from "../modules_css/PokemonList.module.css";
+import { style } from "@mui/system";
 
  function Pokemon_list(){
     
+        
+    
+    
+   
    let  results = getPokemons();
    const url_data = [] ;
    const [pokemons,setPokemons] = useState([]);
@@ -27,10 +32,17 @@ import { useState, useEffect } from "react";
             results.then( res =>{
                 setPokemons(pokemons.concat(res.pokemons)); 
                 setNextData(res.next_data);
+                
+      
+       
         })
     }
 
-   
+    useEffect(()=>{
+        const form = document.getElementById('form');
+        if(Array.from(form.classList).indexOf('_hidden'))
+            form.classList.remove('_hidden')
+    })
     const pokemon_array = [];
    
    
@@ -49,11 +61,17 @@ import { useState, useEffect } from "react";
     }
        
     return(
-            <div className='pokemon_list'>
+        <div>
+              <form id="form" className={styles.searchform} >
+        <input type="text" placeholder="Pokemon Name"/>
+        <button type="submit">Search</button>
+      </form>
+            <div className={styles.pokemon_list}>
+              
     {display}        
     
  </div>
-
+ </div>
             
            
            )

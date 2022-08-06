@@ -1,0 +1,72 @@
+.card
+{
+    border : 4px solid red;
+    height:100%;
+    display:grid;
+    grid-template-columns: repeat(12,1fr);
+    grid-template-rows: auto;
+}
+.name
+{
+    border: 2px solid blue;
+    grid-column: 1 /span 3;
+    display : grid;
+}
+.description
+{
+    border: 5px solid green;
+    grid-column: 4 /span 9;
+    display:grid;
+    grid-template-columns: auto;
+    grid-template-rows: auto;
+    
+}
+.desc
+{
+    border: 2px solid yellowgreen;
+    display:flex;
+    justify-content: center;
+}
+.desc >p 
+{
+    border: 2px solid yellowgreen;
+    align-self: center;
+}
+
+.evolution
+{
+    border: 4px solid brown;
+    display:flex;
+    justify-content:center;
+    align-items: center;
+
+}
+.evolution div
+{
+    border : 2px solid red ;
+    width:100%;
+    height: 100%;
+    text-align: center;
+}
+.evolution div img
+{
+    width: 50%;
+}
+.imgPrincipal
+{
+    border: 5px solid red;
+    grid-row: 1;
+    grid-column: 1;
+    text-align: center;
+    
+}
+
+.hidden
+{
+    display : none
+}
+
+.details
+{
+    text-align: center;
+}

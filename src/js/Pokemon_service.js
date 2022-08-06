@@ -49,4 +49,16 @@ export  async function getPokemonsUrl(API_ENDPOINT = url) {
     
 }
 
+export  async function getPokemonsEvolution(API_ENDPOINT = url) {
 
+    const {data} = await axios.get(API_ENDPOINT,{signal: controller.signal});
+    
+       
+    
+   
+    
+    return data;
+    
+    
+    
+}

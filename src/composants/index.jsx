@@ -10,9 +10,24 @@ import pokeReducer from '../reducers/poke_reducer.js';
 const poke_context = React.createContext();
 import Pokemon_list from './Pokemon_list'
 import Display_pokemon from './display_pokemon_card';
+import styles_2 from '../modules_css/Pokemon_card.module.css';
 function Index(){
+function show() {
+  
+    const form = document.getElementById('form');
+    form.classList.remove(styles_2.hidden)
 
+}
   const [state, dispatch] = useReducer(pokeReducer, []);
+
+  
+  function search(){
+    const form = document.getElementById('form');
+    form.addEventListener('submit',(e)=>{
+      e.preventDefault();
+      console.log('ok');
+    })
+  }
 return(
   <Router>
     <div id='container'>
@@ -20,14 +35,11 @@ return(
     <section className="header">
       <nav className="nav">
         <ul className="nav__wrapper">
-          <li className="nav__item_1"><Link to="/">Mon Pokedex</Link></li>
+          <li className="nav__item_1"><Link to="/">Mon Pokedex</Link ></li>
           <li className="nav__item_2">ID</li>
         </ul>
       </nav>
-      <form className="searchform cf">
-        <input type="text" placeholder="Is it me you’re looking for?"/>
-        <button type="submit">Search</button>
-      </form>
+      
     </section>
   </header>
   <main>
