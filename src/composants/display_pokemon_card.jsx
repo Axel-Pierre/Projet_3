@@ -13,7 +13,7 @@ const controller = new AbortController();
             response => {
                
                if(response?.chain.species.name == pokemonData.name ){
-                console.log('ok_1');
+                
                 setActualPokemon(Object.assign(pokemonData,{Actual_pokemon :response.chain.species.url.split('/').reverse()[1]}))
                 setUrlImg(Object.assign(pokemonData,{evolution_one_img :response.chain.species.url.split('/').reverse()[1]}))
                 setEvolves(Object.assign(pokemonData,{evolution_one : pokemonData.name}))
@@ -25,7 +25,7 @@ const controller = new AbortController();
                 setUrlImg(Object.assign(pokemonData,{evolution_three_img: response.chain.evolves_to[0].evolves_to[0].species.url.split('/').reverse()[1]}))
 
                }else if(response?.chain.evolves_to[0].species.name == pokemonData.name ){
-                console.log('ok_2');
+               
                 setActualPokemon(Object.assign(pokemonData,{Actual_pokemon : response.chain.evolves_to[0].species.url.split('/').reverse()[1]}))
 
                 setEvolves(Object.assign(pokemonData,{evolution_one : response.chain.species.name}))
@@ -55,7 +55,7 @@ const controller = new AbortController();
     async function data_sup (){
         getPokemonsUrl(`https://pokeapi.co/api/v2/pokemon-species/${id}`).then(
          (response) =>{
-           // console.log(response.names['4'].name);
+          
         setUrl(response.evolution_chain.url);
              const egg_group = [];
              response.egg_groups.forEach(e => egg_group.push(e.name))
