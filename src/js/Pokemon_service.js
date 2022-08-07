@@ -4,7 +4,12 @@ import axios from 'axios';
  const controller = new AbortController();
   
   
-
+/**
+ * 
+ * @param {url} API_ENDPOINT 
+ * @returns 
+ *Function permettant de recevoir des données de pokemons
+ */
 export  async function getPokemons(API_ENDPOINT = 'https://pokeapi.co/api/v2/pokemon/' ) {
     
     const {data} = await axios.get(API_ENDPOINT);
@@ -17,28 +22,18 @@ export  async function getPokemons(API_ENDPOINT = 'https://pokeapi.co/api/v2/pok
     }
     
 }
-
+/**
+ * 
+ * @param {url} API_ENDPOINT 
+ * @returns 
+ * Destiné pour les données précise sur un pokemon
+ */
 export  async function getPokemonsUrl(API_ENDPOINT = url) {
     
-    const [poke_data,setdatas] = useState([]);
-    const [loading, setLoading] = useState(true);
     const {data} = await axios.get(API_ENDPOINT,{signal: controller.signal});
     
-    
-        switch(loading){
-            case true :
-                
-                setdatas(data)
-                if(poke_data.length != 0){
-                    setLoading(false);
-                } 
-                break;
-            case  false : 
-            useEffect(() => controller.abort()  )
-            setLoading(true);
-            setdatas("")
-            break;
-        }
+    return data
+
        
     
    
@@ -48,7 +43,12 @@ export  async function getPokemonsUrl(API_ENDPOINT = url) {
     
     
 }
-
+/**
+ * 
+ * @param {url} API_ENDPOINT 
+ * @returns 
+ * plus simple, permet de faire une requete visant à avoir les informations sur les evolutions
+ */
 export  async function getPokemonsEvolution(API_ENDPOINT = url) {
 
     const {data} = await axios.get(API_ENDPOINT,{signal: controller.signal});
