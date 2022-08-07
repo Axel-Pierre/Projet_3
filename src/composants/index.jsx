@@ -10,6 +10,7 @@ import pokeReducer from '../reducers/poke_reducer.js';
 const poke_context = React.createContext();
 import Pokemon_list from './Pokemon_list'
 import Display_pokemon from './display_pokemon_card';
+//import Search_pokemon from './Search_pokemon';
 import styles_2 from '../modules_css/Pokemon_card.module.css';
 function Index(){
 function show() {
@@ -36,7 +37,7 @@ return(
       <nav className="nav">
         <ul className="nav__wrapper">
           <li className="nav__item_1"><Link to="/">Mon Pokedex</Link ></li>
-          <li className="nav__item_2">ID</li>
+          
         </ul>
       </nav>
       
@@ -50,6 +51,7 @@ return(
           <Route path="/" element ={<Pokemon_list/>}/>
           <Route path="*" element ={<Pokemon_list/>}/>
           <Route path="/display_pokemon:id" element ={<Display_pokemon/>}/>
+        
           </Routes>
         <poke_context.Provider value={{state, dispatch}}>
         

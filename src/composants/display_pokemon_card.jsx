@@ -5,17 +5,17 @@ import { getPokemonsUrl, getPokemonsEvolution } from "../js/Pokemon_service"
 import styles from '../modules_css/Card_pokemon.module.css'
 const controller = new AbortController();
  function Display_pokemon(){
-const form = document.getElementById('form');
+
 
   async function evolution (url){
        
         getPokemonsEvolution(url).then(   
             response => {
-                console.log(response);
-                console.log(response.chain.evolves_to[0].species.url.split('/').reverse()[1]);
+               
                if(response?.chain.species.name == pokemonData.name ){
                 console.log('ok_1');
-                setUrlImg(Object.assign(pokemonData,{evolution_one_img: id}))
+                setActualPokemon(Object.assign(pokemonData,{Actual_pokemon :response.chain.species.url.split('/').reverse()[1]}))
+                setUrlImg(Object.assign(pokemonData,{evolution_one_img :response.chain.species.url.split('/').reverse()[1]}))
                 setEvolves(Object.assign(pokemonData,{evolution_one : pokemonData.name}))
 
                 setEvolves(Object.assign(pokemonData,{evolution_two : response.chain.evolves_to[0].species.name}))
@@ -26,17 +26,20 @@ const form = document.getElementById('form');
 
                }else if(response?.chain.evolves_to[0].species.name == pokemonData.name ){
                 console.log('ok_2');
+                setActualPokemon(Object.assign(pokemonData,{Actual_pokemon : response.chain.evolves_to[0].species.url.split('/').reverse()[1]}))
+
                 setEvolves(Object.assign(pokemonData,{evolution_one : response.chain.species.name}))
                 setUrlImg(Object.assign(pokemonData,{evolution_one_img :response.chain.species.url.split('/').reverse()[1]}))
 
                 setEvolves(Object.assign(pokemonData,{evolution_two : pokemonData.name}))
-                setUrlImg(Object.assign(pokemonData,{evolution_two_img : id}))
-
+                setUrlImg(Object.assign(pokemonData,{evolution_two_img :response.chain.evolves_to[0].species.url.split('/').reverse()[1]}))
+               
                 setEvolves(Object.assign(pokemonData,{evolution_three : response.chain.evolves_to[0].evolves_to[0].species.name}))
                 setUrlImg(Object.assign(pokemonData,{evolution_three_img: response.chain.evolves_to[0].evolves_to[0].species.url.split('/').reverse()[1]}))
 
                }else if(response?.chain.evolves_to[0].evolves_to[0].species.name == pokemonData.name){
-                console.log('ok_3');
+                setActualPokemon(Object.assign(pokemonData,{Actual_pokemon : response.chain.evolves_to[0].evolves_to[0].species.url.split('/').reverse()[1]}))
+
                 setUrlImg(Object.assign(pokemonData,{evolution_one_img :response.chain.species.url.split('/').reverse()[1]}))
                 setEvolves(Object.assign(pokemonData,{evolution_one : response.chain.species.name}))
 
@@ -44,7 +47,7 @@ const form = document.getElementById('form');
                 setUrlImg(Object.assign(pokemonData,{evolution_two_img :response.chain.evolves_to[0].species.url.split('/').reverse()[1]}))
 
                 setEvolves(Object.assign(pokemonData,{evolution_three: pokemonData.name}))
-                setUrlImg(Object.assign(pokemonData,{evolution_three_img: id}))
+                setUrlImg(Object.assign(pokemonData,{evolution_three_img: response.chain.evolves_to[0].evolves_to[0].species.url.split('/').reverse()[1]}))
                }
             })}
              // console.log(response.chain.evolves_to[0].species.url)
@@ -70,8 +73,9 @@ const form = document.getElementById('form');
      )}
    
     const id =  location.href.split(':')[3]
-       
+    
     const moves = [];
+    const [actualPokemon,setActualPokemon] = useState({});
     const [url,setUrl] = useState();
     const [url_img,setUrlImg] = useState({});
     const [pokemonData,setPokemonData] = useState({});
@@ -81,7 +85,7 @@ const form = document.getElementById('form');
         evolution_two : '',
         evolution_three :''
     });
-
+    
     const types = [];
     const abilities = [];
     getPokemonsUrl(`https://pokeapi.co/api/v2/pokemon/${id}`).then(
@@ -100,7 +104,7 @@ const form = document.getElementById('form');
                 spDefense : response.stats[4].base_stat,
                 speed: response.stats[5].base_stat,
                 type : types.toString(),
-                weight : response.weight /100,
+                weight : response.weight /10,
                 height: response.height /10,
                 abilities : abilities.toString(),
                 moves : moves.toString(),
@@ -110,16 +114,15 @@ const form = document.getElementById('form');
         })
         .then(data_sup())
         .then(evolution(url))
-
+       
         useEffect (()=> {
         if(evolves.evolution_one == ""
          && evolves.evolution_two == "" 
          && evolves.evolution_three == ""){console.log('no_evolution')}
+         
         })
-
             
-        ;
-    
+        
     return(
      <div className={styles.card}>
         <div className={styles.name}>
@@ -139,8 +142,8 @@ const form = document.getElementById('form');
            <p>Abilities : {pokemonData.abilities}</p>
         </div>
         <div className={styles.imgPrincipal}>
-        <img src={`https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/${id}.png`} width='50%'/>
-        <p>{pokemonData.name}</p>
+        <img src={`https:raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/${actualPokemon.Actual_pokemon}.png`} width='50%'/>
+        <p>{pokemonData.name}</p>  <p>id:{actualPokemon.Actual_pokemon}</p>
        </div>
         </div>
         <div className={styles.description}>
@@ -151,17 +154,21 @@ const form = document.getElementById('form');
         </div> 
         <div className={styles.evolution}>
             <div>
+                
           <p> {evolves.evolution_one} </p>
+          <br/> 
            <img src={`https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/${url_img.evolution_one_img}.png`}></img>
        </div>
          {evolves.evolution_two ?
        <div>
          
-       <p>{'evolve to '+ evolves.evolution_two}</p> 
+       <p>{'evolve to '+ evolves.evolution_two}</p>
+       <br/> 
        <img  src={`https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/${url_img.evolution_two_img}.png`}/>
        </div> : ""}
             
           {evolves.evolution_three?<div> <p>{'evolve to '+ evolves.evolution_three}</p> 
+          <br/> 
           <img src={`https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/${url_img.evolution_three_img}.png`}/>
           </div>: ""} 
           

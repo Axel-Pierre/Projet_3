@@ -1,9 +1,10 @@
 
 import Generate_pokemon_card from "./Generate_pokemon_card";
 import  {getPokemons, getPokemonsUrl} from "../js/Pokemon_service";
-import { useState, useEffect } from "react";
+import { useState, useEffect  } from "react";
 import styles from "../modules_css/PokemonList.module.css";
-import { style } from "@mui/system";
+import {useNavigate} from 'react-router-dom';
+
 
  function Pokemon_list(){
     
@@ -38,19 +39,28 @@ import { style } from "@mui/system";
         })
     }
 
-    useEffect(()=>{
-        const form = document.getElementById('form');
-        if(Array.from(form.classList).indexOf('_hidden'))
-            form.classList.remove('_hidden')
-    })
+  
     const pokemon_array = [];
-   
+   const [redirection,setRedirection] = useState(false);
    
     const display = [];
-   
+    const navigate = useNavigate();
+   let poke_search = "";
+
     pokemons.map((pokemon) => pokemon_array.push(pokemon.name))
     pokemons.map(pokemon =>  url_data.push(pokemon.url));
    
+    useEffect(()=>{
+       
+        const form = document.getElementById('form');
+        form.addEventListener('submit',(e)=>{
+            e.preventDefault();
+             poke_search = document.getElementById('poke_name').value;
+            navigate(`/display_pokemon:${poke_search}`);
+       // display.forEach((e)=>{ if(poke_search == e.props.name){poke_search = e}})
+          
+    })})
+    
 
    for(let i=0; i<pokemon_array.length;i++){
        display.push(
@@ -59,16 +69,17 @@ import { style } from "@mui/system";
         )
    
     }
-       
+   
     return(
         <div>
+            
               <form id="form" className={styles.searchform} >
-        <input type="text" placeholder="Pokemon Name"/>
-        <button type="submit">Search</button>
+        <input  id='poke_name' type="text" placeholder="Pokemon Name or Pokemon ID"/>
+        <button type='submit'>Search</button>
       </form>
             <div className={styles.pokemon_list}>
               
-    {display}        
+     { display }        
     
  </div>
  </div>

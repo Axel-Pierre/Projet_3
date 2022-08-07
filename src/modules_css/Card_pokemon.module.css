@@ -1,6 +1,16 @@
+@font-face
+{
+    font-family : "Pokemon Classic";
+    src : url("/public/fonts/Pokemon\ Classic.ttf");
+}
+
+body
+{
+    font-family: "Pokemon Classic";
+}
 .card
 {
-    border : 4px solid red;
+    
     height:100%;
     display:grid;
     grid-template-columns: repeat(12,1fr);
@@ -8,34 +18,39 @@
 }
 .name
 {
-    border: 2px solid blue;
+    
     grid-column: 1 /span 3;
     display : grid;
+    
+   
 }
 .description
 {
-    border: 5px solid green;
+
     grid-column: 4 /span 9;
     display:grid;
     grid-template-columns: auto;
     grid-template-rows: auto;
-    
+ 
 }
 .desc
 {
-    border: 2px solid yellowgreen;
+    
     display:flex;
     justify-content: center;
 }
 .desc >p 
 {
-    border: 2px solid yellowgreen;
+  
     align-self: center;
+    border: thick double grey;
+    border-radius: 5%;
+    box-shadow: 3px 5px 0px  black;
 }
 
 .evolution
 {
-    border: 4px solid brown;
+ 
     display:flex;
     justify-content:center;
     align-items: center;
@@ -43,22 +58,30 @@
 }
 .evolution div
 {
-    border : 2px solid red ;
+    
     width:100%;
     height: 100%;
     text-align: center;
+    font-size : 20px;
+    
+    
 }
 .evolution div img
 {
     width: 50%;
+    background:   no-repeat center   url('../../public/images/pokeball.png');
+    background-size: 100%;
+    
 }
 .imgPrincipal
 {
-    border: 5px solid red;
+  
     grid-row: 1;
     grid-column: 1;
     text-align: center;
-    
+    background :  no-repeat  right  20% url('/public/images/gameboy.png');
+    background-size: 100%;
+    border-radius: 10%;
 }
 
 .hidden
@@ -69,4 +92,66 @@
 .details
 {
     text-align: center;
+    font-size: 10px;
+    border: thick double grey;
+    border-radius: 5%;
+    box-shadow: 8px 8px 20px  black;
+
+}
+
+@media (max-width : 1220px){
+    .evolution div {
+        font-size: 12px;
+    }
+}
+@media (max-width : 730px){
+    .evolution div {
+        font-size: 10px;
+    }
+    .evolution{
+        display:grid;
+    }
+
+    .desc {
+        width: 80%;
+        margin-left: 10%;
+    }
+    .desc >p 
+{
+  
+    align-self: center;
+    border: thick double grey;
+    border-radius: 5%;
+    box-shadow: 3px 5px 0px  black;
+    font-size : 10px;
+}
+
+}
+
+@media (max-width : 560px){
+    .desc {
+        
+        margin-left: 15%;
+    }
+}
+@media (max-width : 560px){
+    .desc {
+        
+        margin-left: 30%;
+        width: 60%;
+    }
+    .evolution div {
+        font-size: 10px;
+    }
+    .evolution{
+        display:grid;
+        margin-left:  30%;
+    }
+}
+@media (max-width : 390px){
+    .desc {
+        
+        margin-left: 40%;
+        width: 60%;
+    }
 }
