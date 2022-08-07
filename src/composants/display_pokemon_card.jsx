@@ -6,7 +6,7 @@ import styles from '../modules_css/Card_pokemon.module.css'
 const controller = new AbortController();
  function Display_pokemon(){
 
-
+// cette fonction permet de recuperer les informations des evolutions
   async function evolution (url){
        
         getPokemonsEvolution(url).then(   
@@ -50,13 +50,8 @@ const controller = new AbortController();
                 setUrlImg(Object.assign(pokemonData,{evolution_three_img: response.chain.evolves_to[0].evolves_to[0].species.url.split('/').reverse()[1]}))
                }
             })}
-             // console.log(response.chain.evolves_to[0].species.url)
-                //console.log(response.chain.evolves_to[0].species.name);
-               // console.log(response.chain.evolves_to[0].evolves_to[0].species.name);
-
-
-        
-    
+            
+    // cette function permet de recuperer le description et la categorie du pokemon
     async function data_sup (){
         getPokemonsUrl(`https://pokeapi.co/api/v2/pokemon-species/${id}`).then(
          (response) =>{
@@ -71,9 +66,11 @@ const controller = new AbortController();
          }))
          }
      )}
-   
+
+   // cela permet de recuperer l'id qui est dans l'url 
     const id =  location.href.split(':')[3]
-    
+
+    // declaration des states
     const moves = [];
     const [actualPokemon,setActualPokemon] = useState({});
     const [url,setUrl] = useState();
@@ -88,6 +85,7 @@ const controller = new AbortController();
     
     const types = [];
     const abilities = [];
+    //requete permettant de recevoir les informations clé du pokemon (sa taille,son poids, ses stats...)
     getPokemonsUrl(`https://pokeapi.co/api/v2/pokemon/${id}`).then(
             (response) => {
                 
@@ -122,7 +120,7 @@ const controller = new AbortController();
          
         })
             
-        
+    
     return(
      <div className={styles.card}>
         <div className={styles.name}>

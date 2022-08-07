@@ -18,15 +18,12 @@ import {useNavigate} from 'react-router-dom';
 
    const [nextDatas,setNextData] = useState();
   
-   
+   //on recupere les resultats et on les stockes dans les states
         if(nextDatas == ""){
         results.then( res =>{
         setPokemons(res.pokemons); 
         setNextData(res.next_data);
-            
-        //res.signal;
-        // data = getPokemonsUrl(pokemons[0].url);
-         //data.then( response => console.log(response.sprites.front_default));
+        
         
         })}else{
             results = getPokemons(nextDatas)
@@ -39,11 +36,11 @@ import {useNavigate} from 'react-router-dom';
         })
     }
 
-  
+      //ps je n'ai pas pu faire de state sur mon display suite à mon bug rencontré sur axios (voir le lisez-moi)
     const pokemon_array = [];
-   const [redirection,setRedirection] = useState(false);
-   
     const display = [];
+// du coup j'ai utiliser une alternative me permettant d'envoyer directement l'utilisateur sur la page du pokemon ciblé
+
     const navigate = useNavigate();
    let poke_search = "";
 
@@ -57,7 +54,6 @@ import {useNavigate} from 'react-router-dom';
             e.preventDefault();
              poke_search = document.getElementById('poke_name').value;
             navigate(`/display_pokemon:${poke_search}`);
-       // display.forEach((e)=>{ if(poke_search == e.props.name){poke_search = e}})
           
     })})
     
